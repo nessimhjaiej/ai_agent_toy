@@ -1,6 +1,6 @@
 
 import os
-
+from google.genai import types
 """- README.md: file_size=1032 bytes, is_dir=False
 - src: file_size=128 bytes, is_dir=True
 - package.json: file_size=1234 bytes, is_dir=False"""
@@ -31,3 +31,16 @@ def get_files_info(working_directory, directory=None):
         return f'Error: {str(e)}'
     
         
+schema_get_files_info = types.FunctionDeclaration(
+    name="get_files_info",
+    description="Lists files in the specified directory along with their sizes, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "directory": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to list files from, relative to the working directory. If not provided, lists files in the working directory itself.",
+            ),
+        },
+    ),
+)
