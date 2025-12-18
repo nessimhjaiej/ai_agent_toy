@@ -22,11 +22,14 @@ def get_files_info(working_directory, directory=None):
             return f'Error: The directory "{directory}" does not exist'
         #listing files and directories in target directory
         contents = os.listdir(target_dir)
+        output = []
         #looping over the contents and getting their info
         for content in contents : 
             is_dir = os.path.isdir(os.path.join(target_dir, content))
             file_size = os.path.getsize(os.path.join(target_dir, content))
-            print(f'- {content}: file_size={file_size} bytes, is_dir={is_dir}')
+            output.append(f'- {content}: file_size={file_size} bytes, is_dir={is_dir}')
+        return '\n'.join(output) if output else f'The directory "{directory}" is empty.'
+    
     except Exception as e:
         return f'Error: {str(e)}'
     
